@@ -18,7 +18,7 @@ function onInit() {
         })
         .catch(() => console.log('Error: cannot init map'))
 
-    renderLocations(loadCache())
+    renderLocations(locService.loadCache())
 }
 
 function addListeners(map) {
