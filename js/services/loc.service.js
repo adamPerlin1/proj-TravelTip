@@ -65,10 +65,13 @@ function searchLoc(searchVal) {
         .then(ans => ans.json())
         .then(res => {
             if (res.status !== 'OK') throw new Error('Couldnt communicate with api')
-            return {
+            const formattedLoc = {
                 lat: res.results[0].geometry.location.lat,
                 lng: res.results[0].geometry.location.lng
             }
+            gLocs.push(formattedLoc)
+            storageService.save(LOCS_STORAGE_KEY, gLocs)
+            return formattedLoc
         })
         .catch(err => {
             throw err
