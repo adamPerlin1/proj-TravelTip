@@ -1,5 +1,9 @@
 'use strict'
-
+export const utilService = {
+    makeId,
+    getRandomInt,
+    resetLocalStorage
+}
 function makeId(length) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -42,10 +46,10 @@ function setTextInsideParent(containerSelec, itemSelec, val) {
     $(`.${containerSelec}`).find(`.${itemSelec}`).text(val)
 }
 
-Array.prototype.autoSortObj = function(objKey, sortType, isAsc) {
+Array.prototype.autoSortObj = function (objKey, sortType, isAsc) {
     const sortDir = isAsc ? 1 : -1
-    if (typeof(sortType) === 'string') return this.sort((a, b) => a[objKey].toUpperCase().localeCompare(b[objKey].toUpperCase()) * sortDir)
-    else if (typeof(sortType) === 'number') return this.sort((a, b) => a[objKey] - b[objKey] * sortDir)
+    if (typeof (sortType) === 'string') return this.sort((a, b) => a[objKey].toUpperCase().localeCompare(b[objKey].toUpperCase()) * sortDir)
+    else if (typeof (sortType) === 'number') return this.sort((a, b) => a[objKey] - b[objKey] * sortDir)
 }
 
 // Canvas
