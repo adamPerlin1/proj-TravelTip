@@ -3,11 +3,12 @@ import { storageService } from "./storageService.js"
 
 export const locService = {
     getLocs,
-    addLoc
+    addLoc,
+    loadCache
 }
 
 const locsStorageKey = 'locsDB'
-const locs = []
+let locs
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -17,6 +18,9 @@ function getLocs() {
     })
 }
 
+function loadCache() {
+    return locs = storageService.load(locsStorageKey) || []
+}
 function addLoc({ name, latLng }) {
     const newLoc = {
         id: utilService.makeId(5),
