@@ -65,7 +65,10 @@ function searchLoc(searchVal) {
         .then(ans => ans.json())
         .then(res => {
             if (res.status !== 'OK') throw new Error('Couldnt communicate with api')
-            return res.results[0].geometry.location
+            return {
+                lat: res.results[0].geometry.location.lat,
+                lng: res.results[0].geometry.location.lng
+            }
         })
         .catch(err => {
             throw err
