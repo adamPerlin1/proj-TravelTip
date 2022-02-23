@@ -20,12 +20,14 @@ function getLocs() {
 }
 
 function addLoc({ name, latLng }) {
-    return Promise.resolve(locs.shift({
+    const newLoc = {
         id: utilService.makeId(5),
         name,
         latLng,
         createdAt: Date.now()
-    }))
+    }
+    locs.shift(newLoc)
+    return Promise.resolve(locs)
 }
 
 
