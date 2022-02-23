@@ -36,8 +36,8 @@ function addMapListener(map) {
             }
         }
         
-        var x = locService.addLoc(location)
-        console.log(x);
+        locService.addLoc(location)
+            .then(res => console.log(res))
     })
     
 }
