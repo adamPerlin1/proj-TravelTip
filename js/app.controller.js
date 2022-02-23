@@ -61,6 +61,7 @@ function renderLocations(locations) {
                 </tr>`
     })
     document.querySelector('.places-table').innerHTML = strHTMLs.join('')
+    return locations
 }
 
 function onDelete(locationId) {
@@ -79,6 +80,7 @@ function onSearchLoc() {
     const value = document.querySelector('input').value
     locService.searchLoc(value)
         .then(onPanTo)
+        .then(renderLocations(locService.getLocs()))
         .catch(err => console.log('searchLoc err', err))
 }
 
