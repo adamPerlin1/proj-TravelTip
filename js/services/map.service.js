@@ -4,7 +4,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    get: getMap
+    get: getMap,
+    goTo,
 }
 
 let gMap
@@ -35,13 +36,15 @@ function addMarker(loc) {
     return marker
 }
 
-function panTo(lat, lng) {
+function panTo({ lat, lng }) {
     const laLatLng = new google.maps.LatLng(lat, lng)
     gMap.panTo(laLatLng)
 }
 
 
+function goTo(loc) {
 
+}
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyAKDOsCc8LzeCHGEFj0ULFxzTzmfU6W6_k' // Adam's API Key
