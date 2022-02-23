@@ -1,5 +1,6 @@
 export const locService = {
-    getLocs
+    getLocs,
+    addLoc
 }
 
 
@@ -14,6 +15,15 @@ function getLocs() {
         resolve(locs)
         // }, 2000)
     })
+}
+
+function addLoc({ name, latLng }) {
+    return Promise.resolve(locs.shift({
+        id: makeId(5),
+        name,
+        latLng,
+        created
+    }))
 }
 
 
