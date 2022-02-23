@@ -17,6 +17,8 @@ function onInit() {
             addListeners(map)
         })
         .catch(() => console.log('Error: cannot init map'))
+
+    renderLocations(loadCache())
 }
 
 function addListeners(map) {
@@ -44,6 +46,14 @@ function addMapListener(map) {
 
 function renderLocations(locations){
     console.log(locations);
+    const strHTMLs = locations.map(location => {
+        return `<tr>
+                    <td>${location.name}</td>
+                    <td>${location.latLng.lng}</td>
+                    <td>${location.latLng.lat}</td>
+                </tr>`
+    })
+    document.querySelector('.places-table').innerHTML = strHTMLs.join('')
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
