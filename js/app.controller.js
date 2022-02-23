@@ -20,10 +20,10 @@ function onInit() {
 }
 
 function addListeners(map) {
-    onClickedMap(map)
+    addMapListener(map)
 }
 
-function onClickedMap(map) {
+function addMapListener(map) {
     map.addListener('click', (mapsMouseEvents) => {
         const latLng = mapsMouseEvents.latLng
         console.log(latLng)
