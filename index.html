@@ -20,15 +20,7 @@
 
     </header>
 
-    <main class="main-app">
-        <section class="map-section">
-            <div id="map"></div>
-            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Specific Location</button>
-            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-            <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-            <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
-        </section>
-    
+    <main class="main-app flex space-around">
         <table class="locations-table-container">
             <thead>
                 <th>Name</th>
@@ -38,6 +30,14 @@
             </thead>
             <tbody class="locations-table"></tbody>
         </table>
+
+        <section class="map-section">
+            <div id="map"></div>
+            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Specific Location</button>
+            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+            <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+            <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+        </section>
     </main>
 
     <script type="module" src="js/app.controller.js"></script>

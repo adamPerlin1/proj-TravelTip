@@ -1,3 +1,4 @@
-td {
+.locations-table-container,  td {
     border: 1px solid black;
+    border-collapse: collapse;
 }

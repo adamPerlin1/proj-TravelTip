@@ -1,0 +1,12 @@
+.main-header {
+    background-color: rgb(156, 147, 147);
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-bottom: 20px;
+}
+
+.main-header input {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
