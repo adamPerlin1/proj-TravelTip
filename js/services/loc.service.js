@@ -7,8 +7,7 @@ export const locService = {
 
 
 const locs = [
-    { name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-    { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
+
 ]
 
 function getLocs() {
@@ -20,12 +19,15 @@ function getLocs() {
 }
 
 function addLoc({ name, latLng }) {
-    return Promise.resolve(locs.shift({
+    const newLoc = {
         id: utilService.makeId(5),
         name,
         latLng,
         createdAt: Date.now()
-    }))
+    }
+    locs.unshift(newLoc)
+    console.log(locs)
+    return Promise.resolve(locs)
 }
 
 
