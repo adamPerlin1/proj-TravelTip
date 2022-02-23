@@ -49,6 +49,7 @@ function addMapListener(map) {
 }
 
 function renderLocations(locations) {
+    console.log(locations)
     const strHTMLs = locations.map(location => {
         return `<tr>
                     <td>${location.name}</td>
@@ -80,7 +81,8 @@ function onSearchLoc() {
     const value = document.querySelector('input').value
     locService.searchLoc(value)
         .then(onPanTo)
-        .then(renderLocations(locService.getLocs()))
+        .then(() => locService.getLocs())
+        .then(renderLocations)
         .catch(err => console.log('searchLoc err', err))
 }
 
@@ -107,15 +109,15 @@ function onGetUserPos() {
 }
 
 function onGoTo(lat, lng) {
-    const formattedPos = {lat , lng}
+    const formattedPos = { lat, lng }
     onPanTo(formattedPos)
 }
 
 function onPanTo(loc) {
-    if(!loc) loc ={
-        lat:139.76083673742966,
+    if (!loc) loc = {
+        lat: 139.76083673742966,
         lng: 35.693004073757464
     }
-    console.log('Panning the Map') 
+    console.log('Panning the Map')
     mapService.panTo(loc.lat, loc.lng)
 }
