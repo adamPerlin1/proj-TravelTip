@@ -76,6 +76,7 @@ function getPosition() {
 function onSearchLoc() {
     const value = document.querySelector('input').value
     locService.searchLoc(value)
+        .then(onPanTo)
 }
 
 function onAddMarker() {
