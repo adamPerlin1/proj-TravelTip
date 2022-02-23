@@ -37,15 +37,18 @@ function loadCache() {
 }
 
 function addLoc({ name, latLng }) {
-    const newLoc = {
-        id: utilService.makeId(5),
-        name,
-        latLng,
-        createdAt: Date.now()
-    }
-    gLocs.unshift(newLoc)
-    storageService.save(LOCS_STORAGE_KEY, gLocs)
-    return Promise.resolve(gLocs)
+    return new Promise((resolve, reject) => {
+        if (!name) reject('No Name was given')
+        const newLoc = {
+            id: utilService.makeId(5),
+            name,
+            latLng,
+            createdAt: Date.now()
+        }
+        gLocs.unshift(newLoc)
+        storageService.save(LOCS_STORAGE_KEY, gLocs)
+        resolve(gLocs)
+    })
 }
 
 function removeLoc(id) {
