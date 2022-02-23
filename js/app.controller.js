@@ -73,7 +73,8 @@ function onGo(locationId) {
 
 function onDelete(locationId) {
     locService.remove(locationId)
-    renderLocations(locService.getLocs())
+    locService.getLocs()
+    .then(renderLocations)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
