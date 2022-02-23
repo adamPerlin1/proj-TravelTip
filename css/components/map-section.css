@@ -1,3 +1,5 @@
-.map-section {
-    
+.map-section #map{
+    width: 400px;
+    height: 400px;
+    display: inline-block;
 }
