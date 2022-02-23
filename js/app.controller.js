@@ -43,6 +43,7 @@ function addMapListener(map) {
 
         locService.addLoc(location)
             .then(renderLocations)
+            .catch(err => console.log('err', err))
     })
 
 }
