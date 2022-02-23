@@ -25,8 +25,7 @@ function getLoc(id) {
 }
 
 function setLocs(newLocs) {
-    gLocs = newLocs
-    return Promise.resolve(gLocs)
+    return Promise.resolve(gLocs = newLocs)
 }
 
 function loadCache() {
