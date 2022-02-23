@@ -105,10 +105,5 @@ function onGetUserPos() {
 
 function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('Panning the Map')
-<<<<<<< HEAD
-    console.log(lat);
-    console.log(lng);
-=======
->>>>>>> b622408b35fe962877f5842a91d525283ad3d6a8
     mapService.panTo(lat, lng)
 }
