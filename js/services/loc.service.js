@@ -6,7 +6,8 @@ export const locService = {
     addLoc,
     loadCache,
     getLoc,
-    remove: removeLoc
+    remove: removeLoc,
+    setLocs
 }
 
 const locsStorageKey = 'locsDB'
@@ -14,18 +15,25 @@ let locs
 
 function getLocs() {
     return new Promise((resolve, reject) => {
-        // setTimeout(() => {
-        resolve(locs)
-        // }, 2000)
+        (!locs || !locs.length) ? reject('No locs found') : resolve(locs)
     })
 }
 
 function getLoc(id) {
-    return locs.find(loc => loc.id === id)
+    return Promise.resolve(locs.find(loc => loc.id === id))
+}
+
+function setLocs(newLocs) {
+    locs = newLocs
+    return Promise.resolve(locs)
 }
 
 function loadCache() {
-    return locs = storageService.load(locsStorageKey) || []
+    return new Promise((resolve, reject) => {
+        const newLocs = storageService.load(locsStorageKey)
+        if (!newLocs.length) reject('No Locs in cache')
+        else resolve(newLocs)
+    })
 }
 
 function addLoc({ name, latLng }) {
