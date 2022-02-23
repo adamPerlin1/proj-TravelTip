@@ -4,7 +4,7 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    getMap
+    get: getMap
 }
 
 let gMap

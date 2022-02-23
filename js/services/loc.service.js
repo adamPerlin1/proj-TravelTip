@@ -5,7 +5,7 @@ export const locService = {
     getLocs,
     addLoc,
     loadCache,
-    get: getLoc,
+    getLoc,
     remove: removeLoc
 }
 
