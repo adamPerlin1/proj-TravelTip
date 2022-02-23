@@ -5,7 +5,6 @@ export const mapService = {
     addMarker,
     panTo,
     get: getMap,
-    goTo,
 }
 
 let gMap
@@ -42,9 +41,6 @@ function panTo({ lat, lng }) {
 }
 
 
-function goTo(loc) {
-
-}
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyAKDOsCc8LzeCHGEFj0ULFxzTzmfU6W6_k' // Adam's API Key
@@ -52,7 +48,6 @@ function _connectGoogleApi() {
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true
     document.body.append(elGoogleApi)
-
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve
         elGoogleApi.onerror = () => reject('Google script failed to load')
