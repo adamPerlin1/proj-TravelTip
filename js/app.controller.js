@@ -8,7 +8,6 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
-window.onGoTo = onGoTo
 window.onDelete = onDelete
 
 function onInit() {
@@ -49,22 +48,18 @@ function addMapListener(map) {
 function renderLocations(locations) {
     console.log(locations);
     const strHTMLs = locations.map(location => {
-        // console.log(location.latLng);
+        console.log(location);
         return `<tr>
                     <td>${location.name}</td>
                     <td>${location.latLng.lng}</td>
                     <td>${location.latLng.lat}</td>
                     <td>
-                    <button onclick="onGoTo(${location})">Go</button>
+                    <button onclick="onPanTo(${location})">Go</button>
                     <button onclick="onDelete('${location.id}')">Delete</button>
                     </td>
                 </tr>`
     })
     document.querySelector('.places-table').innerHTML = strHTMLs.join('')
-}
-
-function onGoTo(location) {
-    mapService.panTo(location)
 }
 
 function onDelete(locationId) {
@@ -106,7 +101,8 @@ function onGetUserPos() {
         })
 }
 
-function onPanTo() {
+function onPanTo({latLng}) {
     console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    mapService.panTo(latLng.lat, latLng.lng)
+    // mapService.panTo(35.6895, 139.6917)
 }
