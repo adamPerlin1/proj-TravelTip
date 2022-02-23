@@ -8,7 +8,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
-window.onGo = onGo
+window.onGoTo = onGoTo
 window.onDelete = onDelete
 
 function onInit() {
@@ -55,7 +55,7 @@ function renderLocations(locations) {
                     <td>${location.latLng.lng}</td>
                     <td>${location.latLng.lat}</td>
                     <td>
-                    <button onclick="onGo('${location.id}')">Go</button>
+                    <button onclick="onGoTo(${location})">Go</button>
                     <button onclick="onDelete('${location.id}')">Delete</button>
                     </td>
                 </tr>`
@@ -63,18 +63,14 @@ function renderLocations(locations) {
     document.querySelector('.places-table').innerHTML = strHTMLs.join('')
 }
 
-function onGo(locationId) {
-    console.log(locationId);
-    const loc = locService.getLoc(locationId)
-    console.log(loc);
-    const map = mapService.get()
-    console.log(map);
+function onGoTo(location) {
+    mapService.panTo(location)
 }
 
 function onDelete(locationId) {
     locService.remove(locationId)
     locService.getLocs()
-    .then(renderLocations)
+        .then(renderLocations)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
