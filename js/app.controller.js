@@ -49,12 +49,13 @@ function addMapListener(map) {
 function renderLocations(locations) {
     console.log(locations);
     const strHTMLs = locations.map(location => {
+        // console.log(location.latLng);
         return `<tr>
                     <td>${location.name}</td>
                     <td>${location.latLng.lng}</td>
                     <td>${location.latLng.lat}</td>
                     <td>
-                    <button onclick="onGo('${location.latLng}')">Go</button>
+                    <button onclick="onGo('${location.id}')">Go</button>
                     <button onclick="onDelete('${location.id}')">Delete</button>
                     </td>
                 </tr>`
@@ -62,9 +63,11 @@ function renderLocations(locations) {
     document.querySelector('.places-table').innerHTML = strHTMLs.join('')
 }
 
-function onGo(location) {
-    console.log(location);
-    const map = mapService.getMap()
+function onGo(locationId) {
+    console.log(locationId);
+    const loc = locService.getLoc(locationId)
+    console.log(loc);
+    const map = mapService.get()
     console.log(map);
 }
 
