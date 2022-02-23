@@ -30,7 +30,7 @@ function setLocs(newLocs) {
 
 function loadCache() {
     return new Promise((resolve, reject) => {
-        const newLocs = storageService.load(locsStorageKey)
+        const newLocs = storageService.load(locsStorageKey) || []
         if (!newLocs.length) reject('No Locs in cache')
         else resolve(newLocs)
     })
@@ -49,6 +49,8 @@ function addLoc({ name, latLng }) {
 }
 
 function removeLoc(id) {
-    locs = locs.filter(loc => loc.id !== id)
+    const locsPrm = Promise.resolve(locs = locs.filter(loc => loc.id !== id))
+    storageService.save(locsStorageKey, locs)
+    return locsPrm
 }
 

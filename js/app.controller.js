@@ -66,7 +66,6 @@ function renderLocations(locations) {
 
 function onDelete(locationId) {
     locService.remove(locationId)
-    locService.getLocs()
         .then(renderLocations)
 }
 
