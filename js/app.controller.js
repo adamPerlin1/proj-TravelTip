@@ -8,6 +8,8 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onGo = onGo
+window.onDelete = onDelete
 
 function onInit() {
     mapService.initMap()
@@ -37,23 +39,38 @@ function addMapListener(map) {
                 lng: latLng.lng()
             }
         }
-        
+
         locService.addLoc(location)
             .then(renderLocations)
     })
 
 }
 
-function renderLocations(locations){
+function renderLocations(locations) {
     console.log(locations);
     const strHTMLs = locations.map(location => {
         return `<tr>
                     <td>${location.name}</td>
                     <td>${location.latLng.lng}</td>
                     <td>${location.latLng.lat}</td>
+                    <td>
+                    <button onclick="onGo('${location.latLng}')">Go</button>
+                    <button onclick="onDelete('${location.id}')">Delete</button>
+                    </td>
                 </tr>`
     })
     document.querySelector('.places-table').innerHTML = strHTMLs.join('')
+}
+
+function onGo(location) {
+    console.log(location);
+    const map = mapService.getMap()
+    console.log(map);
+}
+
+function onDelete(locationId) {
+    locService.remove(locationId)
+    renderLocations(locService.getLocs())
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
