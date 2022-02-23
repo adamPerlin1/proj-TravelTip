@@ -29,11 +29,7 @@ function setLocs(newLocs) {
 }
 
 function loadCache() {
-    return new Promise((resolve, reject) => {
-        const newLocs = storageService.load(LOCS_STORAGE_KEY) || []
-        if (!newLocs.length) reject('No Locs in cache')
-        else resolve(newLocs)
-    })
+    return Promise.resolve(storageService.load(LOCS_STORAGE_KEY) || [])
 }
 
 function addLoc({ name, latLng }) {
@@ -69,9 +65,8 @@ function searchLoc(searchVal) {
                 lat: res.results[0].geometry.location.lat,
                 lng: res.results[0].geometry.location.lng
             }
-            gLocs.push(formattedLoc)
-            storageService.save(LOCS_STORAGE_KEY, gLocs)
-            return formattedLoc
+            return addLoc({ name: searchVal, latLng: formattedLoc })
+                .then(() => formattedLoc)
         })
         .catch(err => {
             throw err
