@@ -54,7 +54,7 @@ function renderLocations(locations) {
                     <td>${location.latLng.lng}</td>
                     <td>${location.latLng.lat}</td>
                     <td>
-                    <button onclick="onPanTo(${location})">Go</button>
+                    <button onclick="onPanTo(${location.latLng.lat},${location.latLng.lng})">Go</button>
                     <button onclick="onDelete('${location.id}')">Delete</button>
                     </td>
                 </tr>`
@@ -93,6 +93,7 @@ function onGetUserPos() {
     getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords)
+            onPanTo(pos.coords.latitude, pos.coords.longitude)
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
@@ -101,8 +102,10 @@ function onGetUserPos() {
         })
 }
 
-function onPanTo({latLng}) {
+function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('Panning the Map')
-    mapService.panTo(latLng.lat, latLng.lng)
     // mapService.panTo(35.6895, 139.6917)
+    console.log(lat);
+    console.log(lng);
+    mapService.panTo(lat, lng)
 }

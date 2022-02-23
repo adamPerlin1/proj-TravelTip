@@ -34,7 +34,7 @@ function addMarker(loc) {
     return marker
 }
 
-function panTo({ lat, lng }) {
+function panTo(lat, lng) {
     const laLatLng = new google.maps.LatLng(lat, lng)
     gMap.panTo(laLatLng)
 }
