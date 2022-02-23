@@ -35,11 +35,11 @@ function onClickedMap(map) {
                 lng: latLng.lng()
             }
         }
-        
+
         var x = locService.addLoc(location)
         console.log(x);
     })
-    
+
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
