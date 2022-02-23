@@ -9,6 +9,7 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onDelete = onDelete
+window.onSearchLoc = onSearchLoc
 
 function onInit() {
     mapService.initMap()
@@ -75,6 +76,11 @@ function getPosition() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
+}
+
+function onSearchLoc() {
+    const value = document.querySelector('input').value
+    locService.searchLoc(value)
 }
 
 function onAddMarker() {
