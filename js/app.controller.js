@@ -11,12 +11,20 @@ window.onGetUserPos = onGetUserPos
 window.onGoTo = onGoTo
 window.onDelete = onDelete
 window.onSearchLoc = onSearchLoc
+window.onSaveSearch = onSaveSearch
 
 function onInit() {
+
     mapService.initMap()
         .then((map) => {
             console.log('Map is ready')
             addListeners(map)
+            if (/\?lat=\d*\.\d*&lng=\d*\.\d*/g.test(window.location.href)) {
+                console.log(window.location.href)
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const params = Object.fromEntries(urlSearchParams.entries());
+                onPanTo(params)
+            }
         })
         .catch(() => console.log('Error: cannot init map'))
 
@@ -40,7 +48,6 @@ function addMapListener(map) {
                 lng: latLng.lng()
             }
         }
-
         locService.addLoc(location)
             .then(renderLocations)
             .catch(err => console.log('err', err))
@@ -49,7 +56,6 @@ function addMapListener(map) {
 }
 
 function renderLocations(locations) {
-    console.log(locations)
     const strHTMLs = locations.map(location => {
         return `<tr>
                     <td>${location.name}</td>
@@ -80,12 +86,24 @@ function getPosition() {
 function onSearchLoc() {
     const value = document.querySelector('input').value
     locService.searchLoc(value)
+        .then(locService.setQueryParams)
         .then(onPanTo)
         .then(() => locService.getLocs())
         .then(renderLocations)
         .catch(err => console.log('searchLoc err', err))
 }
 
+function onSaveSearch() {
+    locService.getQueryParams()
+        .then(res => {
+            const currAdd = window.location.href
+            if (/\?lat=\d*\.\d*&lng=\d*\.\d*/g.test(currAdd)) {
+                return currAdd.replace(/\?lat=\d*\.\d*&lng=\d*\.\d*/g, res)
+            } else return currAdd + res
+        })
+        .then(res => navigator.clipboard.writeText(res))
+        .catch(err => console.log(err))
+}
 function onAddMarker() {
     console.log('Adding a marker')
     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
@@ -119,5 +137,6 @@ function onPanTo(loc) {
         lng: 35.693004073757464
     }
     console.log('Panning the Map')
+    console.log(loc)
     mapService.panTo(loc.lat, loc.lng)
 }
