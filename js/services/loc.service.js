@@ -42,6 +42,5 @@ function addLoc({ name, latLng }) {
 
 function removeLoc(id) {
     locs = locs.filter(loc => loc.id !== id)
-    console.log(locs)
 }
 
