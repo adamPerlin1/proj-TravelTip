@@ -78,7 +78,7 @@ function getPosition() {
 function onSearchLoc() {
     const value = document.querySelector('input').value
     locService.searchLoc(value)
-        .then(res => console.log(res))
+        .then(onPanTo)
         .catch(err => console.log('searchLoc err', err))
 }
 
@@ -113,7 +113,6 @@ function onPanTo(loc) {
     if(!loc) loc ={
         lat:139.76083673742966,
         lng: 35.693004073757464
-       
     }
     console.log('Panning the Map') 
     mapService.panTo(loc.lat, loc.lng)
