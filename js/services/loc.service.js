@@ -1,3 +1,5 @@
+import { utilService } from "./utilService.js"
+
 export const locService = {
     getLocs,
     addLoc
@@ -19,10 +21,10 @@ function getLocs() {
 
 function addLoc({ name, latLng }) {
     return Promise.resolve(locs.shift({
-        id: makeId(5),
+        id: utilService.makeId(5),
         name,
         latLng,
-        created
+        createdAt: Date.now()
     }))
 }
 
