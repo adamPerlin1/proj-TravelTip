@@ -8,11 +8,14 @@ export const locService = {
     getLoc,
     remove: removeLoc,
     setLocs,
-    searchLoc
+    searchLoc,
+    setQueryParams,
+    getQueryParams
 }
 
 const LOCS_STORAGE_KEY = 'locsDB'
 let gLocs
+let gQueryParams
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -71,4 +74,15 @@ function searchLoc(searchVal) {
         .catch(err => {
             throw err
         })
+}
+
+function setQueryParams(loc) {
+    gQueryParams = `?lat=${loc.lat}&lng=${loc.lng}`
+    return Promise.resolve(loc)
+}
+function getQueryParams() {
+    return new Promise((resolve, reject) => {
+        if (gQueryParams) resolve(gQueryParams)
+        else reject('No Query Params available')
+    })
 }
