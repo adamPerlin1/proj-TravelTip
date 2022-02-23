@@ -37,14 +37,14 @@ function addMapListener(map) {
                 lng: latLng.lng()
             }
         }
-        
+
         locService.addLoc(location)
             .then(renderLocations)
     })
 
 }
 
-function renderLocations(locations){
+function renderLocations(locations) {
     console.log(locations);
     const strHTMLs = locations.map(location => {
         return `<tr>
