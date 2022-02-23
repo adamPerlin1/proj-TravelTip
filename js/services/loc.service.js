@@ -7,30 +7,31 @@ export const locService = {
     loadCache,
     getLoc,
     remove: removeLoc,
-    setLocs
+    setLocs,
+    searchLoc
 }
 
-const locsStorageKey = 'locsDB'
-let locs
+const LOCS_STORAGE_KEY = 'locsDB'
+let gLocs
 
 function getLocs() {
     return new Promise((resolve, reject) => {
-        (!locs || !locs.length) ? reject('No locs found') : resolve(locs)
+        (!gLocs || !gLocs.length) ? reject('No locs found') : resolve(gLocs)
     })
 }
 
 function getLoc(id) {
-    return Promise.resolve(locs.find(loc => loc.id === id))
+    return Promise.resolve(gLocs.find(loc => loc.id === id))
 }
 
 function setLocs(newLocs) {
-    locs = newLocs
-    return Promise.resolve(locs)
+    gLocs = newLocs
+    return Promise.resolve(gLocs)
 }
 
 function loadCache() {
     return new Promise((resolve, reject) => {
-        const newLocs = storageService.load(locsStorageKey) || []
+        const newLocs = storageService.load(LOCS_STORAGE_KEY) || []
         if (!newLocs.length) reject('No Locs in cache')
         else resolve(newLocs)
     })
@@ -43,14 +44,22 @@ function addLoc({ name, latLng }) {
         latLng,
         createdAt: Date.now()
     }
-    locs.unshift(newLoc)
-    storageService.save(locsStorageKey, locs)
-    return Promise.resolve(locs)
+    gLocs.unshift(newLoc)
+    storageService.save(LOCS_STORAGE_KEY, gLocs)
+    return Promise.resolve(gLocs)
 }
 
 function removeLoc(id) {
-    const locsPrm = Promise.resolve(locs = locs.filter(loc => loc.id !== id))
-    storageService.save(locsStorageKey, locs)
+    const locsPrm = Promise.resolve(gLocs = gLocs.filter(loc => loc.id !== id))
+    storageService.save(LOCS_STORAGE_KEY, gLocs)
     return locsPrm
 }
 
+function searchLoc(searchVal) {
+    const API_KEY = 'AIzaSyAKDOsCc8LzeCHGEFj0ULFxzTzmfU6W6_k' // Adam's API Key
+    searchVal = searchVal.replace(/\s/g, '+')
+    console.log(searchVal);
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchVal}&key=${API_KEY}`)
+        .then(ans => ans.json())
+        .then(res => console.log(res))
+}
