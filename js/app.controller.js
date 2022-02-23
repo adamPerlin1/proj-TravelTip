@@ -32,8 +32,6 @@ function addListeners(map) {
 function addMapListener(map) {
     map.addListener('click', (mapsMouseEvents) => {
         const latLng = mapsMouseEvents.latLng
-        console.log(latLng)
-
         const location = {
             name: prompt('Enter location name'),
             latLng: {
@@ -49,9 +47,7 @@ function addMapListener(map) {
 }
 
 function renderLocations(locations) {
-    console.log(locations);
     const strHTMLs = locations.map(location => {
-        console.log(location);
         return `<tr>
                     <td>${location.name}</td>
                     <td>${location.latLng.lng}</td>
@@ -72,7 +68,6 @@ function onDelete(locationId) {
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    console.log('Getting Pos')
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
@@ -91,7 +86,6 @@ function onAddMarker() {
 function onGetLocs() {
     locService.getLocs()
         .then(locs => {
-            console.log('Locations:', locs)
             document.querySelector('.locs').innerText = JSON.stringify(locs)
         })
 }
@@ -111,7 +105,10 @@ function onGetUserPos() {
 
 function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('Panning the Map')
+<<<<<<< HEAD
     console.log(lat);
     console.log(lng);
+=======
+>>>>>>> b622408b35fe962877f5842a91d525283ad3d6a8
     mapService.panTo(lat, lng)
 }
