@@ -60,7 +60,7 @@ function renderLocations(locations) {
                     </td>
                 </tr>`
     })
-    document.querySelector('.places-table').innerHTML = strHTMLs.join('')
+    document.querySelector('.locations-table').innerHTML = strHTMLs.join('')
     return locations
 }
 
