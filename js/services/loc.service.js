@@ -61,14 +61,11 @@ function searchLoc(searchVal) {
     const API_KEY = 'AIzaSyAKDOsCc8LzeCHGEFj0ULFxzTzmfU6W6_k' // Adam's API Key
     searchVal = searchVal.replace(/\s/g, '+')
     console.log(searchVal);
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchVal}&key=${API_KEY}`)
+    return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchVal}&key=${API_KEY}`)
         .then(ans => ans.json())
         .then(res => {
-            return new Promise((resolve, reject) => {
-                if (res.status !== 'OK') reject('Couldnt communicate with api')
-                if (!res.results.length) reject('Couldnt find results')
-                resolve(res.results[0].geometry.location)
-            })
+            if (res.status !== 'OK') throw new Error('Couldnt communicate with api')
+            return res.results[0].geometry.location
         })
         .catch(err => {
             throw err
