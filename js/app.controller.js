@@ -37,9 +37,13 @@ function addMapListener(map) {
         }
         
         locService.addLoc(location)
-            .then(res => console.log(res))
+            .then(renderLocations)
     })
 
+}
+
+function renderLocations(locations){
+    console.log(locations);
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
