@@ -11,10 +11,35 @@ window.onGetUserPos = onGetUserPos
 
 function onInit() {
     mapService.initMap()
-        .then(() => {
+        .then((map) => {
             console.log('Map is ready')
+            // console.log(map);
+            addListeners(map)
         })
         .catch(() => console.log('Error: cannot init map'))
+}
+
+function addListeners(map) {
+    onClickedMap(map)
+}
+
+function onClickedMap(map) {
+    map.addListener('click', (mapsMouseEvents) => {
+        const latLng = mapsMouseEvents.latLng
+        console.log(latLng)
+
+        const location = {
+            name: prompt('Enter location name'),
+            latLng: {
+                lat: latLng.lat(),
+                lng: latLng.lng()
+            }
+        }
+        
+        var x = locService.addLoc(location)
+        console.log(x);
+    })
+    
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
