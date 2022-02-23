@@ -3,11 +3,15 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    get: getMap
 }
 
 let gMap
 
+function getMap() {
+    return gMap
+}
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
     return _connectGoogleApi()

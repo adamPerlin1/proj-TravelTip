@@ -4,7 +4,9 @@ import { storageService } from "./storageService.js"
 export const locService = {
     getLocs,
     addLoc,
-    loadCache
+    loadCache,
+    getLoc,
+    remove: removeLoc
 }
 
 const locsStorageKey = 'locsDB'
@@ -18,9 +20,14 @@ function getLocs() {
     })
 }
 
+function getLoc(id) {
+    return locs.find(loc => loc.id === id)
+}
+
 function loadCache() {
     return locs = storageService.load(locsStorageKey) || []
 }
+
 function addLoc({ name, latLng }) {
     const newLoc = {
         id: utilService.makeId(5),
@@ -33,4 +40,7 @@ function addLoc({ name, latLng }) {
     return Promise.resolve(locs)
 }
 
+function removeLoc(id) {
+    locs.filter(({ currId }) => currId !== id)
+}
 
