@@ -63,5 +63,14 @@ function searchLoc(searchVal) {
     console.log(searchVal);
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchVal}&key=${API_KEY}`)
         .then(ans => ans.json())
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            if (res.status !== 'OK') throw new Error('Couldnt communicate with api')
+            if (!res.results.length) throw new Error('Couldnt find results')
+            console.log(res.results[0].geometry.location)
+            return res.results[0].geometry.location
+        })
+        .catch(err => {
+            throw err
+        })
 }
