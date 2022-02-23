@@ -1,14 +1,14 @@
 import { utilService } from "./utilService.js"
+import { storageService } from "./storageService.js"
 
 export const locService = {
     getLocs,
-    addLoc
+    addLoc,
+    loadCache
 }
 
-
-const locs = [
-
-]
+const locsStorageKey = 'locsDB'
+let locs
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -18,6 +18,9 @@ function getLocs() {
     })
 }
 
+function loadCache() {
+    return locs = storageService.load(locsStorageKey) || []
+}
 function addLoc({ name, latLng }) {
     const newLoc = {
         id: utilService.makeId(5),
@@ -26,7 +29,7 @@ function addLoc({ name, latLng }) {
         createdAt: Date.now()
     }
     locs.unshift(newLoc)
-    console.log(locs)
+    storageService.save(locsStorageKey, locs)
     return Promise.resolve(locs)
 }
 
