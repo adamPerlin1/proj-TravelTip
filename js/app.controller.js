@@ -14,12 +14,14 @@ function onInit() {
     mapService.initMap()
         .then((map) => {
             console.log('Map is ready')
-            // console.log(map);
             addListeners(map)
         })
         .catch(() => console.log('Error: cannot init map'))
 
-    renderLocations(locService.loadCache())
+    locService.loadCache()
+        .then(locService.setLocs)
+        .then(renderLocations)
+        .catch(err => console.log(err))
 }
 
 function addListeners(map) {
