@@ -8,6 +8,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onGoTo = onGoTo
 window.onDelete = onDelete
 window.onSearchLoc = onSearchLoc
 
@@ -53,7 +54,7 @@ function renderLocations(locations) {
                     <td>${location.latLng.lng}</td>
                     <td>${location.latLng.lat}</td>
                     <td>
-                    <button onclick="onPanTo(${location.latLng.lat},${location.latLng.lng})">Go</button>
+                    <button onclick="onGoTo(${location.latLng.lat},${location.latLng.lng})">Go</button>
                     <button onclick="onDelete('${location.id}')">Delete</button>
                     </td>
                 </tr>`
@@ -94,17 +95,24 @@ function onGetLocs() {
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords)
-            onPanTo(pos.coords.latitude, pos.coords.longitude)
-            // document.querySelector('.user-pos').innerText =
-            //     `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            onGoTo(pos.coords.latitude, pos.coords.longitude)
         })
         .catch(err => {
             console.log('err!!!', err)
         })
 }
 
-function onPanTo(lat = 35.6895, lng = 139.6917) {
-    console.log('Panning the Map')
-    mapService.panTo(lat, lng)
+function onGoTo(lat, lng) {
+    const formattedPos = {lat , lng}
+    onPanTo(formattedPos)
+}
+
+function onPanTo(loc) {
+    if(!loc) loc ={
+        lat:139.76083673742966,
+        lng: 35.693004073757464
+       
+    }
+    console.log('Panning the Map') 
+    mapService.panTo(loc.lat, loc.lng)
 }
